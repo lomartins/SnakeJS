@@ -27,7 +27,7 @@ function renderScreen() {
         context.fillStyle = 'black'
         context.fillRect(body.x, body.y, 1, 1)
     }
-    
+    requestAnimationFrame(renderScreen)
 }
 
 
@@ -54,10 +54,21 @@ function handleKeydown(event) {
 
 
 // Movimento
-setInterval(moveSnake, 128)
-function moveSnake() {
+setInterval(Game, 128)
+function Game() {
     const direction = game.direction
     const player = game.snake
+
+    for (var i = player.length - 1; i > 0; i--) {
+        if (player[0].x === player[i].x && player[0].y === player[i].y) {
+            return;
+        }
+    }
+
+    if (player[0].x == game.apple.x && player[0].y == game.apple.y) {
+        player.push({x: 0, y: 0})
+        game.apple = {x: randomOnGrid(), y: randomOnGrid()}
+    }
 
     for (var i = player.length - 1; i > 0; i--) {
         player[i].x = player[i-1]['x']
@@ -77,6 +88,6 @@ function moveSnake() {
         player[0].x += 1
     }
 
+    
 
-    requestAnimationFrame(renderScreen)
 }
