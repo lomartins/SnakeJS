@@ -6,8 +6,8 @@ function randomOnGrid() {
 }
 
 const game = {
-    snake: [{x: 6, y:5}, {x: 5, y: 5}, {x: 4, y: 5}],
-    direction: 'ArrowRight',
+    snake: [{x: 6, y:5}, {x: 5, y: 5}],
+    direction: 'Right',
     apple: {x: randomOnGrid(), y: randomOnGrid()}
 }
 
@@ -27,8 +27,6 @@ function renderScreen() {
         context.fillStyle = 'black'
         context.fillRect(body.x, body.y, 1, 1)
     }
-
-    
     
 }
 
@@ -39,7 +37,18 @@ document.addEventListener("keydown", handleKeydown)
 function handleKeydown(event) {
     const keyPressed = event.key
 
-    game.direction = keyPressed
+    if (keyPressed === 'ArrowUp') {
+        game.direction = 'Up'
+    }
+    if (keyPressed === 'ArrowDown') {
+        game.direction = 'Down'
+    }
+    if (keyPressed === 'ArrowLeft') {
+        game.direction = 'Left'
+    }
+    if (keyPressed === 'ArrowRight') {
+        game.direction = 'Right'
+    }
 }
 
 
@@ -55,16 +64,16 @@ function moveSnake() {
         player[i].y = player[i-1]['y']
     }
 
-    if (direction === 'ArrowUp') {
+    if (direction === 'Up') {
         player[0].y -= 1
     }
-    if (direction === 'ArrowDown') {
+    if (direction === 'Down') {
         player[0].y += 1
     }
-    if (direction === 'ArrowLeft') {
+    if (direction === 'Left') {
         player[0].x -= 1
     }
-    if (direction === 'ArrowRight') {
+    if (direction === 'Right') {
         player[0].x += 1
     }
 
