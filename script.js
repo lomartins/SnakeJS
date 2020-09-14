@@ -54,10 +54,16 @@ function handleKeydown(event) {
 
 
 // Movimento
-setInterval(Game, 128)
+//setInterval(Game, 128)
 function Game() {
     const direction = game.direction
     const player = game.snake
+
+    
+    if (player[0].x > 29 || player[0].x < 0 || player[0].y >= 30 || player[0].y < 0) {
+        return;
+    }
+
 
     for (var i = player.length - 1; i > 0; i--) {
         if (player[0].x === player[i].x && player[0].y === player[i].y) {
@@ -88,6 +94,12 @@ function Game() {
         player[0].x += 1
     }
 
-    
 
+}
+var intervalo = setInterval(Game, 128)
+function startGame() {    
+    game.snake = [{x: 6, y:5}, {x: 5, y: 5}],
+    game.direction = 'Right',
+    game.apple = {x: randomOnGrid(), y: randomOnGrid()}
+    Game()
 }
